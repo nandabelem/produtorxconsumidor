@@ -10,6 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import gui.*;
+import java.awt.print.PrinterException;
 import java.util.ArrayList;
 
 /**
@@ -77,8 +78,11 @@ public class Produtor extends Thread {
             sincroniza.setPermissao(key);
             array.add("O produtor "+idProdutor+" terminou e devolveu a permissão.");
             }finally{
-            log.adicionaLinhas(array);
-            //
+                try {
+                    log.adicionaLinhas(array);
+                } catch (PrinterException ex) {
+                    Logger.getLogger(Produtor.class.getName()).log(Level.SEVERE, null, ex);
+                }
             lock.unlock();            
         }   
             
