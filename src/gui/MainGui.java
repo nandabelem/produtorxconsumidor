@@ -12,7 +12,7 @@ import produtorxconsumidor.*;
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class MainGui extends javax.swing.JFrame  {
        
@@ -171,7 +171,7 @@ public class MainGui extends javax.swing.JFrame  {
         vetorConsumidor = new Consumidor[qtdProdutoresConsumidores];
         
  
-        
+        threadDaInterface.start();
         
         for(int i = 1; i < qtdProdutoresConsumidores+1; i++){
             Produtor produtor = new Produtor(i, buffer, sincroniza, lock, log, threadDaInterface);

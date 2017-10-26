@@ -5,12 +5,10 @@
  */
 package produtorxconsumidor;
 
-import static java.lang.Thread.sleep;
-
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class Sincroniza {
     

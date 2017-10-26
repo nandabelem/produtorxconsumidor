@@ -5,8 +5,6 @@
  */
 package gui;
 
-import java.awt.print.PrinterException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +12,7 @@ import produtorxconsumidor.Produtor;
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class Log extends javax.swing.JFrame implements Runnable{
 
@@ -126,10 +124,17 @@ public class Log extends javax.swing.JFrame implements Runnable{
 
     @Override
     public void run() {
+      while(true){  
       DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
       for(int i = 0; i < (Produtor.getArray()).size(); i++){
           String[] texto = {(String) (Produtor.getArray()).get(i)};          
           modelo.addRow(texto);          
          }
+          try {
+              wait();
+          } catch (InterruptedException ex) {
+              Logger.getLogger(Log.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
     }
 }

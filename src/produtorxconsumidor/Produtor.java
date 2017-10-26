@@ -10,10 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import gui.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class Produtor extends Thread {
     
@@ -51,7 +52,7 @@ public class Produtor extends Thread {
             array.add("Iniciou Produtor "+idProdutor);
             try {
                 array.add("O produtor "+idProdutor+" foi dormir ZzzZz");
-                sleep(200);
+                sleep(valorEspera());
                 array.add("O produtor "+idProdutor+" acordou e foi tentar a permissão!");
             } catch (InterruptedException ex) {
                 Logger.getLogger(Produtor.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,7 +62,7 @@ public class Produtor extends Thread {
                 array.add("O produtor "+idProdutor+" não teve permissão");
                 try {
                     array.add("O produtor "+idProdutor+" foi dormir ZzzZz");
-                    sleep(1000);
+                    sleep(valorEspera());
                     array.add("O produtor "+idProdutor+" acordou e foi tentar a permissão!");
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Produtor.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,22 +78,24 @@ public class Produtor extends Thread {
                 array.add("O Buffer está cheio, o Produtor "+idProdutor+" não pode escrever.");
             }
             sincroniza.setPermissao(key);
-            array.add("O produtor "+idProdutor+" terminou e devolveu a permissão.");
+            array.add("O produtor "+idProdutor+" terminou e devolveu a permissão.");            
             }finally{                
-                threadDaInterface.start();
+                threadDaInterface.notify();
                 lock.unlock();            
+            }          
+                             
         }
-
-            
-            
-                 
-    }
         
     }
 
-            public static ArrayList getArray(){
-                return array;
-            }
+    public static ArrayList getArray(){
+        return array;
+    }
+            
+    public int valorEspera(){
+        Random valor = new Random();
+        return valor.nextInt(999) + 1;      
+    }
 
 }
     

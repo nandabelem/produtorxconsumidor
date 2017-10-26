@@ -6,14 +6,14 @@
 package produtorxconsumidor;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import gui.*;
+import java.util.Random;
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class Consumidor extends Thread{
     
@@ -51,7 +51,7 @@ public class Consumidor extends Thread{
             try {
                 System.out.println("O consumidor "+idConsumidor+" foi dormir ZzzZz");
                 System.out.flush();
-                sleep(200); 
+                sleep(valorEspera()); 
                 System.out.println("O consumidor "+idConsumidor+" acordou e foi tentar a permissão");
                 System.out.flush();
             } catch (InterruptedException ex) {
@@ -64,7 +64,7 @@ public class Consumidor extends Thread{
                 try {
                     System.out.println("O consumidor "+idConsumidor+" foi dormir ZzzZz");
                     System.out.flush();
-                    sleep(1000);
+                    sleep(valorEspera());
                     System.out.println("O consumidor "+idConsumidor+" acordou e foi tentar a permissão");
                     System.out.flush();
                 } catch (InterruptedException ex) {
@@ -87,11 +87,16 @@ public class Consumidor extends Thread{
                     sincroniza.setPermissao(key);         
                     System.out.println("O consumidor "+idConsumidor+" terminou e devolveu a permissão.");   
                     System.out.flush();
-            }finally{
-                    lock.unlock();                    
+                    }finally{
+                        lock.unlock();                    
+                }
             }
-      }
             
+        }
+    
+    public int valorEspera(){
+        Random valor = new Random();
+        return valor.nextInt(999) + 1;      
     }
     
 }

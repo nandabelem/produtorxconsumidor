@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
- * @author aluno-linux
+ * @author fernanda
  */
 public class Buffer {
     
