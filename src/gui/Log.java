@@ -7,14 +7,16 @@ package gui;
 
 import java.awt.print.PrinterException;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableColumnModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import produtorxconsumidor.Produtor;
 
 /**
  *
  * @author aluno-linux
  */
-public class Log extends javax.swing.JFrame {
+public class Log extends javax.swing.JFrame implements Runnable{
 
     
     
@@ -117,18 +119,17 @@ public class Log extends javax.swing.JFrame {
 
     }
 
-    public void adicionaLinhas(ArrayList array) throws PrinterException{
-      DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-      for(int i = 0; i < array.size(); i++){
-          String[] texto = {(String) array.get(i)};          
-          modelo.addRow(texto);
-          
-         }
-   }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+      DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+      for(int i = 0; i < (Produtor.getArray()).size(); i++){
+          String[] texto = {(String) (Produtor.getArray()).get(i)};          
+          modelo.addRow(texto);          
+         }
+    }
 }

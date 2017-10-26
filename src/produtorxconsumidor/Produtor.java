@@ -6,11 +6,9 @@
 package produtorxconsumidor;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import gui.*;
-import java.awt.print.PrinterException;
 import java.util.ArrayList;
 
 /**
@@ -24,14 +22,17 @@ public class Produtor extends Thread {
     private Sincroniza sincroniza;
     private Lock lock;
     private Log log;
-    public ArrayList<String> array = new ArrayList();
+    private final Thread threadDaInterface;
+    public static ArrayList<String> array = new ArrayList();
+    
 
-    public Produtor(int idProdutor, Buffer buffer, Sincroniza sincroniza, Lock lock, Log log) {
+    public Produtor(int idProdutor, Buffer buffer, Sincroniza sincroniza, Lock lock, Log log, Thread threadDaInterface) {
         this.idProdutor = idProdutor;
         this.buffer = buffer;
         this.sincroniza = sincroniza;
         this.lock = lock;
         this.log = log;
+        this.threadDaInterface = threadDaInterface;
     }        
 
     public int getIdProdutor() {
@@ -77,19 +78,22 @@ public class Produtor extends Thread {
             }
             sincroniza.setPermissao(key);
             array.add("O produtor "+idProdutor+" terminou e devolveu a permissão.");
-            }finally{
-                try {
-                    log.adicionaLinhas(array);
-                } catch (PrinterException ex) {
-                    Logger.getLogger(Produtor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            lock.unlock();            
-        }   
+            }finally{                
+                threadDaInterface.start();
+                lock.unlock();            
+        }
+
+            
             
                  
     }
         
     }
+
+            public static ArrayList getArray(){
+                return array;
+            }
+
 }
     
 

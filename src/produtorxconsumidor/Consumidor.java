@@ -22,13 +22,15 @@ public class Consumidor extends Thread{
     private Sincroniza sincroniza;
     private Lock lock;
     private Log log;
+    private Thread threadDaInterface;
 
-    public Consumidor(int idConsumidor, Buffer buffer, Sincroniza sincroniza, Lock lock, Log log){
+    public Consumidor(int idConsumidor, Buffer buffer, Sincroniza sincroniza, Lock lock, Log log, Thread threadDaInterface){
         this.idConsumidor = idConsumidor;
         this.buffer = buffer;
         this.sincroniza = sincroniza;
         this.lock = lock;
         this.log = log;
+        this.threadDaInterface = threadDaInterface;
     }
 
     public int getIdConsumidor() {

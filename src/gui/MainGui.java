@@ -161,6 +161,7 @@ public class MainGui extends javax.swing.JFrame  {
         Consumidor[] vetorConsumidor;
         Lock lock = new ReentrantLock();
         Log log = new Log();
+        Thread threadDaInterface = new Thread(log);
       
         
         buffer.iniciarBuffer();
@@ -169,9 +170,12 @@ public class MainGui extends javax.swing.JFrame  {
         vetorProdutor = new Produtor[qtdProdutoresConsumidores];
         vetorConsumidor = new Consumidor[qtdProdutoresConsumidores];
         
+ 
+        
+        
         for(int i = 1; i < qtdProdutoresConsumidores+1; i++){
-            Produtor produtor = new Produtor(i, buffer, sincroniza, lock, log);
-            Consumidor consumidor = new Consumidor(i, buffer, sincroniza, lock, log);
+            Produtor produtor = new Produtor(i, buffer, sincroniza, lock, log, threadDaInterface);
+            Consumidor consumidor = new Consumidor(i, buffer, sincroniza, lock,  log, threadDaInterface);
             vetorProdutor[i-1] = produtor;
             vetorConsumidor[i-1] = consumidor;
             Thread threadDoProdutor = new Thread(produtor);
@@ -187,6 +191,7 @@ public class MainGui extends javax.swing.JFrame  {
             
         }
     }
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton iniciar;
